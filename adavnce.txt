@@ -1,0 +1,358 @@
+mysql> show DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| movies_db          |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.35 sec)
+
+mysql> show TABLES;
+ERROR 1046 (3D000): No database selected
+mysql> USE movies_db;
+Database changed
+mysql> show TABLES;
++---------------------+
+| Tables_in_movies_db |
++---------------------+
+| actors              |
++---------------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT * FROM Actors;
++-----------+-----------+--------+----------+
+| FirstName | LastName  | Gender | Networth |
++-----------+-----------+--------+----------+
+| Chris     | Hemsworth | Male   |      400 |
+| Scarlett  | Johnson   | Male   |      700 |
+| Paul      | Rudd      | Male   |      150 |
+| Brie      | Larson    | Female |      650 |
+| Chris     | Evans     | Male   |      700 |
+| Joohnny   | Depp      | Male   |      200 |
+| Chadwick  | Boseman   | Male   |      700 |
++-----------+-----------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> DESC actors;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| FirstName | varchar(20) | YES  |     | NULL    |       |
+| LastName  | varchar(20) | YES  |     | NULL    |       |
+| Gender    | varchar(10) | YES  |     | NULL    |       |
+| Networth  | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+MySQL server version for the right syntax to use near 'not null check(Networth>0)' at line 1
+mysql> ALTER TABLE Actors ADD check(Networth>0);
+Query OK, 7 rows affected (0.09 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> DESC actors;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| FirstName | varchar(20) | YES  |     | NULL    |       |
+| LastName  | varchar(20) | YES  |     | NULL    |       |
+| Gender    | varchar(10) | YES  |     | NULL    |       |
+| Networth  | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Actors ADD Actor_ID INT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC actors;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| FirstName | varchar(20) | YES  |     | NULL    |       |
+| LastName  | varchar(20) | YES  |     | NULL    |       |
+| Gender    | varchar(10) | YES  |     | NULL    |       |
+| Networth  | int         | YES  |     | NULL    |       |
+| Actor_ID  | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Actors ADD PRIMARY KEY(Actor_ID);
+ERROR 1138 (22004): Invalid use of NULL value
+mysql> ALTER TABLE Actors DROP COLUMN Actor_ID;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC actors;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| FirstName | varchar(20) | YES  |     | NULL    |       |
+| LastName  | varchar(20) | YES  |     | NULL    |       |
+| Gender    | varchar(10) | YES  |     | NULL    |       |
+| Networth  | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Actors ADD Actor_ID INT auto_increment primary key;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC actors;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| FirstName | varchar(20) | YES  |     | NULL    |                |
+| LastName  | varchar(20) | YES  |     | NULL    |                |
+| Gender    | varchar(10) | YES  |     | NULL    |                |
+| Networth  | int         | YES  |     | NULL    |                |
+| Actor_ID  | int         | NO   | PRI | NULL    | auto_increment |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Actors;
++-----------+-----------+--------+----------+----------+
+| FirstName | LastName  | Gender | Networth | Actor_ID |
++-----------+-----------+--------+----------+----------+
+| Chris     | Hemsworth | Male   |      400 |        1 |
+| Scarlett  | Johnson   | Male   |      700 |        2 |
+| Paul      | Rudd      | Male   |      150 |        3 |
+| Brie      | Larson    | Female |      650 |        4 |
+| Chris     | Evans     | Male   |      700 |        5 |
+| Joohnny   | Depp      | Male   |      200 |        6 |
+| Chadwick  | Boseman   | Male   |      700 |        7 |
++-----------+-----------+--------+----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> decs Actors;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decs Actors' at line 1
+mysql> decs actors;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decs actors' at line 1
+mysql> DESC actors;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| FirstName | varchar(20) | YES  |     | NULL    |                |
+| LastName  | varchar(20) | YES  |     | NULL    |                |
+| Gender    | varchar(10) | YES  |     | NULL    |                |
+| Networth  | int         | YES  |     | NULL    |                |
+| Actor_ID  | int         | NO   | PRI | NULL    | auto_increment |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Actors DROP COLUMN Gender;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC actors;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| FirstName | varchar(20) | YES  |     | NULL    |                |
+| LastName  | varchar(20) | YES  |     | NULL    |                |
+| Networth  | int         | YES  |     | NULL    |                |
+| Actor_ID  | int         | NO   | PRI | NULL    | auto_increment |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Actors ADD COLUMN last_update timestamp DEFAULT_GENERATED on update CURRENT_TIMESTAMP;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEFAULT_GENERATED on update CURRENT_TIMESTAMP' at line 1
+mysql> ALTER TABLE Actors ADD COLUMN last_update TIMESTAMP default now();
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC actors;
++-------------+-------------+------+-----+-------------------+-------------------+
+| Field       | Type        | Null | Key | Default           | Extra             |
++-------------+-------------+------+-----+-------------------+-------------------+
+| FirstName   | varchar(20) | YES  |     | NULL              |                   |
+| LastName    | varchar(20) | YES  |     | NULL              |                   |
+| Networth    | int         | YES  |     | NULL              |                   |
+| Actor_ID    | int         | NO   | PRI | NULL              | auto_increment    |
+| last_update | timestamp   | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++-------------+-------------+------+-----+-------------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Actors;
++-----------+-----------+----------+----------+---------------------+
+| FirstName | LastName  | Networth | Actor_ID | last_update         |
++-----------+-----------+----------+----------+---------------------+
+| Chris     | Hemsworth |      400 |        1 | 2023-08-14 00:32:58 |
+| Scarlett  | Johnson   |      700 |        2 | 2023-08-14 00:32:58 |
+| Paul      | Rudd      |      150 |        3 | 2023-08-14 00:32:58 |
+| Brie      | Larson    |      650 |        4 | 2023-08-14 00:32:58 |
+| Chris     | Evans     |      700 |        5 | 2023-08-14 00:32:58 |
+| Joohnny   | Depp      |      200 |        6 | 2023-08-14 00:32:58 |
+| Chadwick  | Boseman   |      700 |        7 | 2023-08-14 00:32:58 |
++-----------+-----------+----------+----------+---------------------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Actors ADD COLUMN Address_ID int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE Addresses(Address_ID int primary key, address VARCHAR(50), district varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DROP TABLE Addresses;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE Addresses(Address_ID int auto_increment primary key, address VARCHAR(50), district varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SELECT * FROM Addresses;
+Empty set (0.00 sec)
+
+mysql> DESC addresses;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| Address_ID | int         | NO   | PRI | NULL    | auto_increment |
+| address    | varchar(50) | YES  |     | NULL    |                |
+| district   | varchar(20) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> DESC actors;
++-------------+-------------+------+-----+-------------------+-------------------+
+| Field       | Type        | Null | Key | Default           | Extra             |
++-------------+-------------+------+-----+-------------------+-------------------+
+| FirstName   | varchar(20) | YES  |     | NULL              |                   |
+| LastName    | varchar(20) | YES  |     | NULL              |                   |
+| Networth    | int         | YES  |     | NULL              |                   |
+| Actor_ID    | int         | NO   | PRI | NULL              | auto_increment    |
+| last_update | timestamp   | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| Address_ID  | int         | YES  |     | NULL              |                   |
++-------------+-------------+------+-----+-------------------+-------------------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Actors ADD CONSTRAINT FOREIGN KEY(Address_ID) REFERENCES actors(Actor_ID);
+Query OK, 7 rows affected (0.06 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> DESC actors;
++-------------+-------------+------+-----+-------------------+-------------------+
+| Field       | Type        | Null | Key | Default           | Extra             |
++-------------+-------------+------+-----+-------------------+-------------------+
+| FirstName   | varchar(20) | YES  |     | NULL              |                   |
+| LastName    | varchar(20) | YES  |     | NULL              |                   |
+| Networth    | int         | YES  |     | NULL              |                   |
+| Actor_ID    | int         | NO   | PRI | NULL              | auto_increment    |
+| last_update | timestamp   | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| Address_ID  | int         | YES  | MUL | NULL              |                   |
++-------------+-------------+------+-----+-------------------+-------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM actors;
++-----------+-----------+----------+----------+---------------------+------------+
+| FirstName | LastName  | Networth | Actor_ID | last_update         | Address_ID |
++-----------+-----------+----------+----------+---------------------+------------+
+| Chris     | Hemsworth |      400 |        1 | 2023-08-14 00:32:58 |       NULL |
+| Scarlett  | Johnson   |      700 |        2 | 2023-08-14 00:32:58 |       NULL |
+| Paul      | Rudd      |      150 |        3 | 2023-08-14 00:32:58 |       NULL |
+| Brie      | Larson    |      650 |        4 | 2023-08-14 00:32:58 |       NULL |
+| Chris     | Evans     |      700 |        5 | 2023-08-14 00:32:58 |       NULL |
+| Joohnny   | Depp      |      200 |        6 | 2023-08-14 00:32:58 |       NULL |
+| Chadwick  | Boseman   |      700 |        7 | 2023-08-14 00:32:58 |       NULL |
++-----------+-----------+----------+----------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> INSERT INTO addresses(address, district) VALUES("a","Bhavnagar"), ("b","Amreli"), ("c","Rajkot"), ("d","Ahemdabad"), ("d","Junagadh"), ("e","Anand");
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM addresses;
++------------+---------+-----------+
+| Address_ID | address | district  |
++------------+---------+-----------+
+|          1 | a       | Bhavnagar |
+|          2 | b       | Amreli    |
+|          3 | c       | Rajkot    |
+|          4 | d       | Ahemdabad |
+|          5 | d       | Junagadh  |
+|          6 | e       | Anand     |
++------------+---------+-----------+
+6 rows in set (0.00 sec)
+
+MySQL server version for the right syntax to use near 'WHERE Actor_ID=1' at line 1
+mysql> UPDATE Actors SET Address_ID=1 WHERE Actor_ID=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE Actors SET Address_ID=2 WHERE Actor_ID=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE Actors SET Address_ID=3 WHERE Actor_ID=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE Actors SET Address_ID=6 WHERE Actor_ID=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE Actors SET Address_ID=4 WHERE Actor_ID=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE Actors SET Address_ID=5 WHERE Actor_ID=6;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE Actors SET Address_ID=6 WHERE Actor_ID=7;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM addresses;
++------------+---------+-----------+
+| Address_ID | address | district  |
++------------+---------+-----------+
+|          1 | a       | Bhavnagar |
+|          2 | b       | Amreli    |
+|          3 | c       | Rajkot    |
+|          4 | d       | Ahemdabad |
+|          5 | d       | Junagadh  |
+|          6 | e       | Anand     |
++------------+---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM actors;
++-----------+-----------+----------+----------+---------------------+------------+
+| FirstName | LastName  | Networth | Actor_ID | last_update         | Address_ID |
++-----------+-----------+----------+----------+---------------------+------------+
+| Chris     | Hemsworth |      400 |        1 | 2023-08-14 00:32:58 |          1 |
+| Scarlett  | Johnson   |      700 |        2 | 2023-08-14 00:32:58 |          2 |
+| Paul      | Rudd      |      150 |        3 | 2023-08-14 00:32:58 |          3 |
+| Brie      | Larson    |      650 |        4 | 2023-08-14 00:32:58 |          6 |
+| Chris     | Evans     |      700 |        5 | 2023-08-14 00:32:58 |          4 |
+| Joohnny   | Depp      |      200 |        6 | 2023-08-14 00:32:58 |          5 |
+| Chadwick  | Boseman   |      700 |        7 | 2023-08-14 00:32:58 |          6 |
++-----------+-----------+----------+----------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> DESC actors;
++-------------+-------------+------+-----+-------------------+-------------------+
+| Field       | Type        | Null | Key | Default           | Extra             |
++-------------+-------------+------+-----+-------------------+-------------------+
+| FirstName   | varchar(20) | YES  |     | NULL              |                   |
+| LastName    | varchar(20) | YES  |     | NULL              |                   |
+| Networth    | int         | YES  |     | NULL              |                   |
+| Actor_ID    | int         | NO   | PRI | NULL              | auto_increment    |
+| last_update | timestamp   | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| Address_ID  | int         | YES  | MUL | NULL              |                   |
++-------------+-------------+------+-----+-------------------+-------------------+
+6 rows in set (0.00 sec)
+
+mysql> DESC addresses;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| Address_ID | int         | NO   | PRI | NULL    | auto_increment |
+| address    | varchar(50) | YES  |     | NULL    |                |
+| district   | varchar(20) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql>
